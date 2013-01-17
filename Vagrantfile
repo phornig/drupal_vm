@@ -28,9 +28,12 @@ Vagrant::Config.run do |config|
   # Increase default memory
   config.vm.customize ["modifyvm", :id, "--memory", 1024]
 
-  # Allow creation of symlinks in shared folder (if 
+  # Allow creation of symlinks in shared folder (if possible by OS)
   config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
 
+  # Give all permission in shared folder, fixes issues on Mac!
+  config.vm.share_folder("v-root", "/vagrant", ".", :extra => 'dmode=777,fmode=777')
+  
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
   # You will need to create the manifests directory and a manifest in
