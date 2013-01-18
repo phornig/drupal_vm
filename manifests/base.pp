@@ -134,7 +134,7 @@ file { '/vagrant/src' :
   ensure => directory,
 }
 
-apache::vhost { 'creative.arte.tv.local':
+apache::vhost { 'site.local':
   port => '80',
   docroot => '/vagrant/src',
   logroot => "/var/log/$title",
@@ -143,10 +143,10 @@ apache::vhost { 'creative.arte.tv.local':
   require => File['/vagrant/src'],
 }
 
-mysql::db {'artecreative':
+mysql::db {'drupaldb':
   ensure => present,
-  user => 'artecreative',
-  password => 'artecreative',
+  user => 'drupal',
+  password => 'drupal',
   host => 'localhost',
   grant => ['all'],
   charset => 'utf8',,
